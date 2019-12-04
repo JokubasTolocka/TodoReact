@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import TodoItem from './TodoItem';
 const APIURL = '/api/todos';
+
 
 class TodoList extends Component {
     constructor(props){
@@ -11,7 +13,7 @@ class TodoList extends Component {
     componentWillMount(){
         this.loadTodos();
     }
-    
+
     loadTodos(){
         fetch(APIURL)
             .then(resp =>   {
@@ -33,8 +35,19 @@ class TodoList extends Component {
     }
 
     render() {
+        const todos = this.state.todos.map((t) => (
+            <TodoItem 
+                key={t._id}
+                {...t}
+            />
+        ));
         return (
-            <h1>TodoList</h1>
+            <div>
+                <h1>TodoList</h1>
+                <ul>
+                    {todos}
+                </ul>
+            </div>
         )
     }
 }
